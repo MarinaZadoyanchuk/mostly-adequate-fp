@@ -24,6 +24,7 @@ describe('utils functions', () => {
       expect(add(1, 2)).equal(curriedAdd(1)(2))
       expect(add(2, 2)).equal(curriedAdd(2)(2))
       expect(add(1, 2)).equal(addOne(2))
+      expect(add(1, 2)).equal(addOne()(2)) // empty call not count
     })
   })
 })
