@@ -1,6 +1,13 @@
 export const pipe = (fns: Function []) => (...args) => fns.reduce((acc, fn) => {
-  return [fn(...acc)]
+  return [fn.call(null, ...acc)]
 }, args)[0]
+
+
+export const compose = (fns: Function []) => (...args) => fns.reduceRight((acc, fn) => {
+  return [fn.call(null, ...acc)]
+}, args)[0]
+
+
 
 
 export const curry = (fn) => {
