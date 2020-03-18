@@ -1,4 +1,5 @@
 import {Maybe} from './Maybe'
+import {Either, Left, Right} from './Either'
 
 export const pipe = (fns: Function []) => (...args) => fns.reduce((acc, fn) => {
   return [fn.call(null, ...acc)]
@@ -32,4 +33,18 @@ export const maybe = curry((v: any, f: Function, m: Maybe) => {
   }
 
   return f(m.$value)
+})
+
+
+// either :: (a -> c) -> (b -> c) -> Either a b -> c
+// either always returns the same type c
+export const either = curry((l: Function, r: Function, e: Either) => {
+  if (e.constructor === Left) {
+    return l(e.$value)
+  }
+
+  if (e.constructor === Right) {
+    return r(e.$value)
+  }
+
 })
