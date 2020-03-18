@@ -1,3 +1,5 @@
+import {Maybe} from './Maybe'
+
 export const pipe = (fns: Function []) => (...args) => fns.reduce((acc, fn) => {
   return [fn.call(null, ...acc)]
 }, args)[0]
@@ -6,8 +8,6 @@ export const pipe = (fns: Function []) => (...args) => fns.reduce((acc, fn) => {
 export const compose = (fns: Function []) => (...args) => fns.reduceRight((acc, fn) => {
   return [fn.call(null, ...acc)]
 }, args)[0]
-
-
 
 
 export const curry = (fn) => {
@@ -22,3 +22,14 @@ export const curry = (fn) => {
 
   return accumulator
 }
+
+
+// maybe :: b -> (a -> b) -> Maybe a -> b
+// always returns the same type b
+export const maybe = curry((v: any, f: Function, m: Maybe) => {
+  if (m.isNothing) {
+    return v
+  }
+
+  return f(m.$value)
+})
